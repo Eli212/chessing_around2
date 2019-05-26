@@ -15,8 +15,9 @@ start_time = 0
 def read_file():
     global start_time
 
-    file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
-    # file_names = ["201301.pgn"]
+    # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
+    # file_names = ["/Users/Eliko/desktop/chessing around files/201301.pgn"]
+    file_names = [os.getcwd() + "/../201301.pgn"]
     print("I will read all the next files:")
     for file_name in file_names:
         print(file_name)
@@ -235,13 +236,13 @@ def read_file2():
 
 
 if __name__ == '__main__':
-    start_time = time.time()
-    read_from_file_to_dict_turns()
-    print(str(((time.time() - start_time) / 60)) + " minutes")
-    start_time2 = time.time()
-    get_best_moves_dict()
-    print(str(((time.time() - start_time2) / 60)) + " minutes")
-    # read_file()
+    # start_time = time.time()
+    # read_from_file_to_dict_turns()
+    # print(str(((time.time() - start_time) / 60)) + " minutes")
+    # start_time2 = time.time()
+    # get_best_moves_dict()
+    # print(str(((time.time() - start_time2) / 60)) + " minutes")
+    read_file()
     # write_dict_turns_to_file()
     # read_from_file_to_dict_turns()
     # read_file2()
