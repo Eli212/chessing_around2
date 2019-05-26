@@ -10,7 +10,7 @@ dict_turns = {}
 final_dict_turns = {}
 counter_total_games = 0
 start_time = 0
-
+# Check
 
 def read_file():
     global start_time
