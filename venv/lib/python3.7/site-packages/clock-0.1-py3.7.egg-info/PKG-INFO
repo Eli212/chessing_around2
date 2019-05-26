@@ -1,0 +1,26 @@
+Metadata-Version: 1.1
+Name: clock
+Version: 0.1
+Summary: A minimalist datetime library for Python
+Home-page: https://github.com/fengsp/clock
+Author: Shipeng Feng
+Author-email: fsp261@gmail.com
+License: BSD
+Description: 
+        Clock
+        -----
+        
+        Clock is a nice datetime practice.
+        
+        Links
+        `````
+        
+        * `documentation <https://github.com/fengsp/clock>`_
+        * `development version
+          <https://github.com/fengsp/clock/zipball/master#egg=Flask-dev>`_
+        
+        
+Platform: any
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python
