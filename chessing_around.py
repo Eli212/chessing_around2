@@ -147,6 +147,7 @@ def write_dict_turns_to_file():
 
 def read_from_file_to_dict_turns():
     # file = open("dict_turns", "r")
+
     file = open(os.getcwd() + "/../dict_turns.txt", "r")
     dict_turns_length = int(file.readline())
     print("reading " + str(dict_turns_length) + " boards")
