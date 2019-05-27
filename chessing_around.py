@@ -151,7 +151,8 @@ def read_from_file_to_dict_turns():
     dict_turns_length = int(file.readline())
     print("reading " + str(dict_turns_length) + " boards")
     for board in range(dict_turns_length):
-        # print(board)
+        if board % 1000000 == 0:
+            print(board)
         board_str = file.readline()
         moves_length = int(file.readline())
         temp_inside_dict_turn = {}
