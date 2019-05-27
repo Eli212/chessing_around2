@@ -17,7 +17,7 @@ def read_file():
 
     # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
     # file_names = ["/Users/Eliko/desktop/chessing around files/201301.pgn"]
-    file_names = [os.getcwd() + "/../201301.pgn"]
+    file_names = [os.getcwd() + "/../201307.pgn"]
     print("I will read all the next files:")
     for file_name in file_names:
         print(file_name)
@@ -42,7 +42,7 @@ def read_in_files(file, file_name, eof):
     global dict_turns
     global counter_total_games
 
-    for game_in_text in range(115000):
+    for game_in_text in range(280000):
         # Create board
         board = chess.Board()
 
@@ -135,9 +135,13 @@ def get_best_moves_dict():
 def write_dict_turns_to_file():
     # dict_turns: {"board" : {e4: 14, d5: 9}}
 
-    file = open("dict_turns", "w")
+    file = open(os.getcwd() + "/../dict_turns.txt", "w")
     file.write(str(len(dict_turns.keys())) + "\n")
+    counter = 0
     for board in dict_turns:
+        counter += 1
+        if counter % 1000000 == 0:
+            print("Wrote " + str(counter) + " boards to file")
         file.write(board + "\n" + str(len(dict_turns.get(board).keys())) + "\n")
         for move in dict_turns.get(board):
             file.write(move + "\n" + str(dict_turns.get(board).get(move)) + "\n")
@@ -239,14 +243,22 @@ def read_file2():
 
 
 if __name__ == '__main__':
-    start_time = time.time()
+    read_from_file_time_to_dict_turns = time.time()
     read_from_file_to_dict_turns()
-    print(str(((time.time() - start_time) / 60)) + " minutes")
-    start_time2 = time.time()
-    get_best_moves_dict()
-    print(str(((time.time() - start_time2) / 60)) + " minutes")
-    # read_file()
-    # write_dict_turns_to_file()
+    print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
+
+    read_from_file_time = time.time()
+    read_file()
+    print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
+
+    write_to_dict_turns_time = time.time()
+    write_dict_turns_to_file()
+    print(str(((time.time() - write_to_dict_turns_time) / 60)) + " minutes")
+
+    # start_time2 = time.time()
+    # get_best_moves_dict()
+    # print(str(((time.time() - start_time2) / 60)) + " minutes")
+
     # read_from_file_to_dict_turns()
     # read_file2()
     # ChessboardApp().run()

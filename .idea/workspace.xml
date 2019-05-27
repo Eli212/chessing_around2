@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chessing_around.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="154" column="22" selection-start-line="154" selection-start-column="22" selection-end-line="154" selection-end-column="22" />
+            <state relative-caret-position="379">
+              <caret line="258" column="27" lean-forward="true" selection-start-line="258" selection-start-column="27" selection-end-line="258" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -319,7 +319,21 @@
       <option name="project" value="LOCAL" />
       <updated>1558885409497</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="minor test changes">
+      <created>1558948899409</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1558948899409</updated>
+    </task>
+    <task id="LOCAL-00008" summary="minor test changes">
+      <created>1558948973088</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1558948973089</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
@@ -359,7 +373,8 @@
     <MESSAGE value="4th commit" />
     <MESSAGE value="5th commit" />
     <MESSAGE value="6th commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="6th commit" />
+    <MESSAGE value="minor test changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor test changes" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/d.py">
@@ -467,8 +482,8 @@
     <entry file="file://$PROJECT_DIR$/dict_turns" />
     <entry file="file://$PROJECT_DIR$/chessing_around.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="154" column="22" selection-start-line="154" selection-start-column="22" selection-end-line="154" selection-end-column="22" />
+        <state relative-caret-position="379">
+          <caret line="258" column="27" lean-forward="true" selection-start-line="258" selection-start-column="27" selection-end-line="258" selection-end-column="27" />
         </state>
       </provider>
     </entry>
