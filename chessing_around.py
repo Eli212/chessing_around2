@@ -17,7 +17,7 @@ def read_file():
 
     # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
     # file_names = ["/Users/Eliko/desktop/chessing around files/201301.pgn"]
-    file_names = [os.getcwd() + "/../201307.pgn"]
+    file_names = [os.getcwd() + "/../201301.pgn"]
     print("I will read all the next files:")
     for file_name in file_names:
         print(file_name)
@@ -33,8 +33,8 @@ def read_file():
         print("Starting to read from file: " + file_name)
         read_in_files(file, file_name, eof)
 
-    write_dict_turns_to_file()
-    get_best_moves_dict()
+    # write_dict_turns_to_file()
+    # get_best_moves_dict()
     # write_file2()
 
 
@@ -243,9 +243,9 @@ def read_file2():
 
 
 if __name__ == '__main__':
-    # read_from_file_time_to_dict_turns = time.time()
-    # read_from_file_to_dict_turns()
-    # print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
+    read_from_file_time_to_dict_turns = time.time()
+    read_from_file_to_dict_turns()
+    print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
 
     read_from_file_time = time.time()
     read_file()
