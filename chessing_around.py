@@ -243,9 +243,9 @@ def read_file2():
 
 
 if __name__ == '__main__':
-    read_from_file_time_to_dict_turns = time.time()
-    read_from_file_to_dict_turns()
-    print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
+    # read_from_file_time_to_dict_turns = time.time()
+    # read_from_file_to_dict_turns()
+    # print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
 
     read_from_file_time = time.time()
     read_file()
