@@ -42,7 +42,7 @@ def read_in_files(file, file_name, eof):
     global dict_turns
     global counter_total_games
 
-    for game_in_text in range(280000):
+    for game_in_text in range(100):
         # Create board
         board = chess.Board()
 
@@ -135,7 +135,8 @@ def get_best_moves_dict():
 def write_dict_turns_to_file():
     # dict_turns: {"board" : {e4: 14, d5: 9}}
 
-    file = open(os.getcwd() + "/../dict_turns.txt", "w")
+    # file = open(os.getcwd() + "/../dict_turns.txt", "w")
+    file = open(os.getcwd() + "/../dict_turns2.txt", "w")
     file.write(str(len(dict_turns.keys())) + "\n")
     counter = 0
     for board in dict_turns:
@@ -153,6 +154,7 @@ def read_from_file_to_dict_turns():
     # file = open("dict_turns", "r")
     file = open(os.getcwd() + "/../dict_turns.txt", "r")
     dict_turns_length = int(file.readline())
+    print("here")
     print("reading " + str(dict_turns_length) + " boards")
     for board in range(dict_turns_length):
         if board % 1000000 == 0:
@@ -243,9 +245,9 @@ def read_file2():
 
 
 if __name__ == '__main__':
-    read_from_file_time_to_dict_turns = time.time()
-    read_from_file_to_dict_turns()
-    print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
+    # read_from_file_time_to_dict_turns = time.time()
+    # read_from_file_to_dict_turns()
+    # print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
 
     read_from_file_time = time.time()
     read_file()
