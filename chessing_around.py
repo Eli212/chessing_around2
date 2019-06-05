@@ -84,6 +84,7 @@ def read_in_files(file, file_name, eof):
 
             # add a note
             add_move_to_dict(old_move.__str__(), move[0])
+            print(old_move.__str__())
 
             # Black's turn
             move = game.split(" ", 1)
