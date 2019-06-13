@@ -247,8 +247,8 @@ if __name__ == '__main__':
     board = chess.Board()
     print("hi")
     a = board.__str__()
-    a.replace('r', 'c')
-    a.replace(' ', '')
+    a.replace("\n", "")
+    a.replace(" ", "")
     print(a)
     #
     # read_from_file_time_to_dict_turns = time.time()
