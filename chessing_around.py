@@ -267,9 +267,9 @@ def read_final_file():
 
 
 if __name__ == '__main__':
-    read_from_file_time_to_dict_turns = time.time()
-    read_from_file_to_dict_turns()
-    print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
+    # read_from_file_time_to_dict_turns = time.time()
+    # read_from_file_to_dict_turns()
+    # print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
 
     # read_from_file_time = time.time()
     # read_games_to_dict_turns()
@@ -279,13 +279,21 @@ if __name__ == '__main__':
     # write_dict_turns_to_file()
     # print(str(((time.time() - write_to_dict_turns_time) / 60)) + " minutes")
 
-    start_time2 = time.time()
-    get_best_moves_dict()
-    print(str(((time.time() - start_time2) / 60)) + " minutes")
+    # print("Getting best moves")
+    # start_time2 = time.time()
+    # get_best_moves_dict()
+    # print(str(((time.time() - start_time2) / 60)) + " minutes")
 
-    write_final_file_start_time = time.time()
-    write_final_file()
-    print(str(((time.time() - write_final_file_start_time) / 60)) + " minutes")
+    # print("Writing to final file")
+    # write_final_file_start_time = time.time()
+    # write_final_file()
+    # print(str(((time.time() - write_final_file_start_time) / 60)) + " minutes")
+
+    print("Reading from final file")
+    read_final_file_start_time = time.time()
+    read_final_file()
+    print("Ended reading from file. details:")
+    print(str(((time.time() - read_final_file_start_time) / 60)) + " minutes")
 
     # read_from_file_to_dict_turns()
     # read_file2()
