@@ -12,7 +12,7 @@ counter_total_games = 0
 start_time = 0
 
 
-def read_file():
+def read_games_to_dict_turns():
     global start_time
 
     # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
@@ -245,13 +245,16 @@ def read_file2():
 
 if __name__ == '__main__':
     board = chess.Board()
-    print(board.__str__())
+    a = board.__str__()
+    a.replace('\n', '')
+    a.replace(' ', '')
+    print(a)
     # read_from_file_time_to_dict_turns = time.time()
     # read_from_file_to_dict_turns()
     # print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
     #
     # read_from_file_time = time.time()
-    # read_file()
+    # read_games_to_dict_turns()
     # print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
     #
     # write_to_dict_turns_time = time.time()
