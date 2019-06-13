@@ -102,7 +102,7 @@ def read_in_files(file, file_name):
             game = move[1]
 
         # Print info
-        if counter_total_games % 1 == 0:
+        if counter_total_games % 1000 == 0:
             print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
                   + "minutes // file: " + file_name)
 
