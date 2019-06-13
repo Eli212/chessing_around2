@@ -110,6 +110,8 @@ def read_in_files(file, file_name, eof):
 
 
 def add_move_to_dict(old_move, new_move):
+    old_move = old_move.replace("\n", "")
+    old_move = old_move.replace(" ", "")
     if old_move in dict_turns:
         if new_move in dict_turns.get(old_move):
             (dict_turns.get(old_move))[new_move] = dict_turns.get(old_move).get(new_move) + 1
@@ -244,24 +246,24 @@ def read_file2():
 
 
 if __name__ == '__main__':
-    board = chess.Board()
-    print("hi")
-    a = board.__str__()
-    a = a.replace("\n", "")
-    a = a.replace(" ", "")
-    print(a)
+    # board = chess.Board()
+    # print("hi")
+    # a = board.__str__()
+    # a = a.replace("\n", "")
+    # a = a.replace(" ", "")
+    # print(a)
     #
-    # read_from_file_time_to_dict_turns = time.time()
-    # read_from_file_to_dict_turns()
-    # print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
+    read_from_file_time_to_dict_turns = time.time()
+    read_from_file_to_dict_turns()
+    print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
     #
-    # read_from_file_time = time.time()
-    # read_games_to_dict_turns()
-    # print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
+    read_from_file_time = time.time()
+    read_games_to_dict_turns()
+    print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
     #
-    # write_to_dict_turns_time = time.time()
-    # write_dict_turns_to_file()
-    # print(str(((time.time() - write_to_dict_turns_time) / 60)) + " minutes")
+    write_to_dict_turns_time = time.time()
+    write_dict_turns_to_file()
+    print(str(((time.time() - write_to_dict_turns_time) / 60)) + " minutes")
 
     # start_time2 = time.time()
     # get_best_moves_dict()
