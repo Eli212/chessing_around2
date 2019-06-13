@@ -247,7 +247,7 @@ if __name__ == '__main__':
     board = chess.Board()
     print("hi")
     a = board.__str__()
-    a.replace('\r', '')
+    a.replace('r', 'c')
     a.replace(' ', '')
     print(a)
     #
