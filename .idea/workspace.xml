@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chessing_around.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="249" column="21" selection-start-line="249" selection-start-column="21" selection-end-line="249" selection-end-column="21" />
+            <state relative-caret-position="179">
+              <caret line="249" column="27" lean-forward="true" selection-start-line="249" selection-start-column="27" selection-end-line="249" selection-end-column="27" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -54,7 +54,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Application</find>
       <find>turn</find>
       <find>evaluate</find>
       <find>score</find>
@@ -84,6 +83,7 @@
       <find>read_file()</find>
       <find>final_dict_turns</find>
       <find>__str</find>
+      <find>replace</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -442,7 +442,21 @@
       <option name="project" value="LOCAL" />
       <updated>1560421695636</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="testing">
+      <created>1560421741032</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1560421741032</updated>
+    </task>
+    <task id="LOCAL-00023" summary="testing">
+      <created>1560421800932</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1560421800932</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView">
@@ -621,8 +635,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chessing_around.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="249" column="21" selection-start-line="249" selection-start-column="21" selection-end-line="249" selection-end-column="21" />
+        <state relative-caret-position="179">
+          <caret line="249" column="27" lean-forward="true" selection-start-line="249" selection-start-column="27" selection-end-line="249" selection-end-column="27" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
