@@ -17,7 +17,10 @@ def read_games_to_dict_turns():
 
     # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
     # file_names = ["/Users/Eliko/desktop/chessing around files/201301.pgn"]
-    file_names = [os.getcwd() + "/../201301.pgn"]
+    # file_names = [os.getcwd() + "/../201301.pgn", os.getcwd() + "/../201302.pgn", os.getcwd()
+    #               + "/../201303.pgn", os.getcwd() + "/../201304.pgn", os.getcwd()
+    #               + "/../201305.pgn", os.getcwd() + "/../201306.pgn", os.getcwd() + "/../201307.pgn"]
+    file_names = [os.getcwd() + "/../2013011.pgn"]
     print("I will read all the next files:")
     for file_name in file_names:
         print(file_name)
@@ -27,28 +30,30 @@ def read_games_to_dict_turns():
     for file_name in file_names:
         file = open(file_name, "r")
         file.seek(0, os.SEEK_END)
-        eof = file.tell()
         file.seek(0)
 
         print("Starting to read from file: " + file_name)
-        read_in_files(file, file_name, eof)
+        read_in_files(file, file_name)
 
     # write_dict_turns_to_file()
     # get_best_moves_dict()
     # write_file2()
 
 
-def read_in_files(file, file_name, eof):
+def read_in_files(file, file_name):
     global dict_turns
     global counter_total_games
 
-    for game_in_text in range(100):
+    # for game_in_text in range(10_000_000): # Run for a specific range of games
+    while True:
         # Create board
         board = chess.Board()
 
         # Skip to game
         while file.read(4) != "\n1. ":
-            file.readline()
+            check = file.readline()  # Reading the next line and checking if it's end of file!
+            if check is "":
+                return
 
         # Get the game
         game = file.readline()
@@ -97,13 +102,9 @@ def read_in_files(file, file_name, eof):
             game = move[1]
 
         # Print info
-        if counter_total_games % 1000 == 0:
-            print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60) + "minutes // file: " + file_name)
-
-        # Check if in end of file
-        ### Doesn't work
-        if file.tell() == eof:
-            return
+        if counter_total_games % 1 == 0:
+            print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
+                  + "minutes // file: " + file_name)
 
         # Skip to next game
         file.readline()
@@ -253,14 +254,15 @@ if __name__ == '__main__':
     # a = a.replace(" ", "")
     # print(a)
     #
-    read_from_file_time_to_dict_turns = time.time()
-    read_from_file_to_dict_turns()
-    print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
+    # read_from_file_time_to_dict_turns = time.time()
+    # read_from_file_to_dict_turns()
+    # print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
     #
+
     read_from_file_time = time.time()
     read_games_to_dict_turns()
     print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
-    #
+
     write_to_dict_turns_time = time.time()
     write_dict_turns_to_file()
     print(str(((time.time() - write_to_dict_turns_time) / 60)) + " minutes")
@@ -272,4 +274,3 @@ if __name__ == '__main__':
     # read_from_file_to_dict_turns()
     # read_file2()
     # ChessboardApp().run()
-#
