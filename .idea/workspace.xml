@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chessing_around.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="298" lean-forward="true" selection-start-line="293" selection-end-line="298" />
+            <state relative-caret-position="315">
+              <caret line="21" column="69" lean-forward="true" selection-start-line="21" selection-start-column="69" selection-end-line="21" selection-end-column="69" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -540,7 +540,21 @@
       <option name="project" value="LOCAL" />
       <updated>1560450288115</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="testing">
+      <created>1560450765949</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1560450765949</updated>
+    </task>
+    <task id="LOCAL-00037" summary="testing">
+      <created>1560451097832</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1560451097832</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TodoView">
@@ -719,8 +733,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chessing_around.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="298" lean-forward="true" selection-start-line="293" selection-end-line="298" />
+        <state relative-caret-position="315">
+          <caret line="21" column="69" lean-forward="true" selection-start-line="21" selection-start-column="69" selection-end-line="21" selection-end-column="69" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
