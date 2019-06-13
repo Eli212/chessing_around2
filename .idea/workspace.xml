@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chessing_around.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="140" column="45" selection-start-line="140" selection-start-column="45" selection-end-line="140" selection-end-column="45" />
+            <state relative-caret-position="96">
+              <caret line="257" column="10" lean-forward="true" selection-start-line="255" selection-start-column="10" selection-end-line="257" selection-end-column="10" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
                 <element signature="e#4905#6763#0" />
@@ -485,7 +485,21 @@
       <option name="project" value="LOCAL" />
       <updated>1560422742373</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="testing">
+      <created>1560422786378</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1560422786378</updated>
+    </task>
+    <task id="LOCAL-00029" summary="testing">
+      <created>1560422795869</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1560422795869</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TodoView">
@@ -664,8 +678,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chessing_around.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="140" column="45" selection-start-line="140" selection-start-column="45" selection-end-line="140" selection-end-column="45" />
+        <state relative-caret-position="96">
+          <caret line="257" column="10" lean-forward="true" selection-start-line="255" selection-start-column="10" selection-end-line="257" selection-end-column="10" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
             <element signature="e#4905#6763#0" />
