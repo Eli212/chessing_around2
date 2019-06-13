@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chessing_around.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="257" column="36" selection-start-line="255" selection-start-column="36" selection-end-line="257" selection-end-column="36" />
+            <state relative-caret-position="212">
+              <caret line="140" column="45" selection-start-line="140" selection-start-column="45" selection-end-line="140" selection-end-column="45" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
                 <element signature="e#4905#6763#0" />
@@ -471,7 +471,21 @@
       <option name="project" value="LOCAL" />
       <updated>1560422684176</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="testing">
+      <created>1560422717314</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1560422717314</updated>
+    </task>
+    <task id="LOCAL-00027" summary="testing">
+      <created>1560422742373</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1560422742373</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TodoView">
@@ -650,8 +664,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chessing_around.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="257" column="36" selection-start-line="255" selection-start-column="36" selection-end-line="257" selection-end-column="36" />
+        <state relative-caret-position="212">
+          <caret line="140" column="45" selection-start-line="140" selection-start-column="45" selection-end-line="140" selection-end-column="45" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
             <element signature="e#4905#6763#0" />

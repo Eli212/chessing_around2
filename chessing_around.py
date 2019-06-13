@@ -138,7 +138,7 @@ def write_dict_turns_to_file():
     # dict_turns: {"board" : {e4: 14, d5: 9}}
 
     # file = open(os.getcwd() + "/../dict_turns.txt", "w")
-    file = open(os.getcwd() + "/../dict_turns2.txt", "w")
+    file = open(os.getcwd() + "/../dict_turns.txt", "w")
     file.write(str(len(dict_turns.keys())) + "\n")
     counter = 0
     for board in dict_turns:
