@@ -110,8 +110,11 @@ def read_in_files(file, file_name):
 
 
 def add_move_to_dict(old_move, new_move):
+    # The next 2 lines is necessary only to run in AWS-EC2 because it's not
+    # reading the correct str func in the init file of the library 'chess'
     old_move = old_move.replace("\n", "")
     old_move = old_move.replace(" ", "")
+
     if old_move in dict_turns:
         if new_move in dict_turns.get(old_move):
             (dict_turns.get(old_move))[new_move] = dict_turns.get(old_move).get(new_move) + 1
@@ -245,30 +248,44 @@ def read_file2():
         white_best_turns[current_turn] = best_move
 
 
+def write_final_file():
+    file = open(os.getcwd() + "/../final_file.txt", "w")
+    file.write(str(len(final_dict_turns.keys())) + "\n")
+    for i in final_dict_turns.keys():
+        file.write(i + "\n" + final_dict_turns.get(i) + "\n")
+
+
+def read_final_file():
+    global final_dict_turns
+
+    file = open(os.getcwd() + "/../final_file.txt", "w")
+    num_of_moves = int(file.readline())
+    for i in range(num_of_moves):
+        board = file.readline()
+        move = file.readline()
+        final_dict_turns[board] = move
+
+
 if __name__ == '__main__':
-    # board = chess.Board()
-    # print("hi")
-    # a = board.__str__()
-    # a = a.replace("\n", "")
-    # a = a.replace(" ", "")
-    # print(a)
-    #
-    # read_from_file_time_to_dict_turns = time.time()
-    # read_from_file_to_dict_turns()
-    # print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
-    #
+    read_from_file_time_to_dict_turns = time.time()
+    read_from_file_to_dict_turns()
+    print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
 
-    read_from_file_time = time.time()
-    read_games_to_dict_turns()
-    print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
+    # read_from_file_time = time.time()
+    # read_games_to_dict_turns()
+    # print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
 
-    write_to_dict_turns_time = time.time()
-    write_dict_turns_to_file()
-    print(str(((time.time() - write_to_dict_turns_time) / 60)) + " minutes")
+    # write_to_dict_turns_time = time.time()
+    # write_dict_turns_to_file()
+    # print(str(((time.time() - write_to_dict_turns_time) / 60)) + " minutes")
 
-    # start_time2 = time.time()
-    # get_best_moves_dict()
-    # print(str(((time.time() - start_time2) / 60)) + " minutes")
+    start_time2 = time.time()
+    get_best_moves_dict()
+    print(str(((time.time() - start_time2) / 60)) + " minutes")
+
+    write_final_file_start_time = time.time()
+    write_final_file()
+    print(str(((time.time() - write_final_file_start_time) / 60)) + " minutes")
 
     # read_from_file_to_dict_turns()
     # read_file2()

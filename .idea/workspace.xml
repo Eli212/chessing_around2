@@ -4,6 +4,7 @@
     <list default="true" id="bbc6cbcd-1e03-414e-9f0d-5377c7107683" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chessing_around.py" beforeDir="false" afterPath="$PROJECT_DIR$/chessing_around.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,11 +17,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chessing_around.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="104" column="37" lean-forward="true" selection-start-line="104" selection-start-column="37" selection-end-line="104" selection-end-column="37" />
+            <state relative-caret-position="351">
+              <caret line="287" column="79" lean-forward="true" selection-start-line="287" selection-start-column="79" selection-end-line="287" selection-end-column="79" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
-                <element signature="e#4905#6763#0" />
               </folding>
             </state>
           </provider>
@@ -29,8 +29,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/chess/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17003">
-              <caret line="1145" column="20" selection-start-line="1145" selection-start-column="20" selection-end-line="1145" selection-end-column="20" />
+            <state relative-caret-position="236">
+              <caret line="809" column="66" selection-start-line="809" selection-start-column="62" selection-end-line="809" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -38,8 +38,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5805">
-              <caret line="414" column="29" selection-start-line="414" selection-start-column="29" selection-end-line="414" selection-end-column="29" />
+            <state relative-caret-position="394">
+              <caret line="422" lean-forward="true" selection-start-line="422" selection-end-line="422" />
             </state>
           </provider>
         </entry>
@@ -55,11 +55,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>evaluate</find>
-      <find>score</find>
-      <find>update_move</find>
-      <find>evaluate_board</find>
-      <find>all_tu</find>
       <find>write_file2</find>
       <find>AAA</find>
       <find>e4</find>
@@ -81,10 +76,15 @@
       <find>here&quot;</find>
       <find>board</find>
       <find>read_file()</find>
-      <find>final_dict_turns</find>
       <find>__str</find>
       <find>replace</find>
       <find>read_from_file_to_dict_turns</find>
+      <find>main</find>
+      <find>read</find>
+      <find>write</find>
+      <find>readline</find>
+      <find>final_dict_turns</find>
+      <find>dict_turns</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -99,9 +99,9 @@
         <option value="$PROJECT_DIR$/homeowkr2.py" />
         <option value="$PROJECT_DIR$/majdi.py" />
         <option value="$PROJECT_DIR$/HW2.py" />
-        <option value="$PROJECT_DIR$/gui.py" />
         <option value="$PROJECT_DIR$/pythonClass.py" />
         <option value="$PROJECT_DIR$/venv/lib/python3.7/site-packages/chess/__init__.py" />
+        <option value="$PROJECT_DIR$/gui.py" />
         <option value="$PROJECT_DIR$/chessing_around.py" />
       </list>
     </option>
@@ -117,7 +117,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -143,6 +142,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -169,7 +169,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.chessing_around">
+  <component name="RunManager" selected="Python.gui">
     <configuration name="chessing_around" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="untitled" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -277,9 +277,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.gui" />
         <item itemvalue="Python.chessing_around" />
         <item itemvalue="Python.pythonClass" />
-        <item itemvalue="Python.gui" />
         <item itemvalue="Python.majdi" />
         <item itemvalue="Python.homeowkr2" />
       </list>
@@ -513,7 +513,21 @@
       <option name="project" value="LOCAL" />
       <updated>1560425536065</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="testing">
+      <created>1560425585932</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1560425585932</updated>
+    </task>
+    <task id="LOCAL-00033" summary="testing">
+      <created>1560425624578</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1560425624578</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TodoView">
@@ -676,27 +690,26 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pythonClass.py" />
-    <entry file="file://$PROJECT_DIR$/gui.py">
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/chess/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5805">
-          <caret line="414" column="29" selection-start-line="414" selection-start-column="29" selection-end-line="414" selection-end-column="29" />
+        <state relative-caret-position="236">
+          <caret line="809" column="66" selection-start-line="809" selection-start-column="62" selection-end-line="809" selection-end-column="66" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/chess/__init__.py">
+    <entry file="file://$PROJECT_DIR$/gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17003">
-          <caret line="1145" column="20" selection-start-line="1145" selection-start-column="20" selection-end-line="1145" selection-end-column="20" />
+        <state relative-caret-position="394">
+          <caret line="422" lean-forward="true" selection-start-line="422" selection-end-line="422" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chessing_around.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="104" column="37" lean-forward="true" selection-start-line="104" selection-start-column="37" selection-end-line="104" selection-end-column="37" />
+        <state relative-caret-position="351">
+          <caret line="287" column="79" lean-forward="true" selection-start-line="287" selection-start-column="79" selection-end-line="287" selection-end-column="79" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <element signature="e#4905#6763#0" />
           </folding>
         </state>
       </provider>

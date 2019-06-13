@@ -411,12 +411,12 @@ class ChessboardApp(App):
 
 
 if __name__ == '__main__':
-    start_time = time.time()
-    chessing_around.read_from_file_to_dict_turns()
-    print(str(((time.time() - start_time) / 60)) + " minutes")
-    start_time2 = time.time()
-    chessing_around.get_best_moves_dict()
-    print(str(((time.time() - start_time2)/60)) + " minutes")
+    # start_time = time.time()
+    # chessing_around.read_from_file_to_dict_turns()
+    # print(str(((time.time() - start_time) / 60)) + " minutes")
+    # start_time2 = time.time()
+    # chessing_around.get_best_moves_dict()
+    # print(str(((time.time() - start_time2)/60)) + " minutes")
     # chessing_around.read_file()
     # chessing_around.read_file2()
-    # ChessboardApp().run()
+    ChessboardApp().run()
