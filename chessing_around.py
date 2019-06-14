@@ -17,7 +17,7 @@ def read_games_to_dict_turns():
 
     # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
     # file_names = ["/Users/Eliko/desktop/chessing around files/201301.pgn"]
-    file_names = [os.getcwd() + "/../201308.pgn", os.getcwd() + "/../201309.pgn"]
+    file_names = [os.getcwd() + "/../201310.pgn", os.getcwd() + "/../201311.pgn"]
     print("I will read all the next files:")
     for file_name in file_names:
         print(file_name)
@@ -271,13 +271,13 @@ if __name__ == '__main__':
     read_from_file_to_dict_turns()
     print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
 
-    read_from_file_time = time.time()
-    read_games_to_dict_turns()
-    print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
+    # read_from_file_time = time.time()
+    # read_games_to_dict_turns()
+    # print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
 
-    write_to_dict_turns_time = time.time()
-    write_dict_turns_to_file()
-    print(str(((time.time() - write_to_dict_turns_time) / 60)) + " minutes")
+    # write_to_dict_turns_time = time.time()
+    # write_dict_turns_to_file()
+    # print(str(((time.time() - write_to_dict_turns_time) / 60)) + " minutes")
 
     print("Getting best moves")
     start_time2 = time.time()
