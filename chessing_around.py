@@ -1,7 +1,11 @@
+import calc as calc
 import chess
 import time
 import os
 import matplotlib.pyplot as plt
+import pandas as pd
+import pymongo
+import mysql.connector
 
 # from gui import ChessboardApp
 
@@ -11,13 +15,73 @@ final_dict_turns = {}
 counter_total_games = 0
 start_time = 0
 
+mydb = mysql.connector.connect(
+        host = 'localhost',
+        user = 'root',
+        password = '123456789',
+        database = 'testdb'
+    )
+mycurser = mydb.cursor()
+# mycurser.execute("SHOW columns FROM moves")
+
+
+def resetDB():
+    sql_formula = f"DROP TABLE moves"
+    mycurser.execute(sql_formula)
+    mydb.commit()
+
+    sql_formula2 = f"CREATE TABLE moves (old_move VARCHAR(64) NOT NULL, new_move VARCHAR(5) NOT NULL," \
+                   f" count INTEGER (2), CONSTRAINT PK_Move PRIMARY KEY (old_move, new_move))"
+    mycurser.execute(sql_formula2)
+    mydb.commit()
+
+
+def mysql_func():
+    pass
+    # new_formula2 = f"UPDATE moves SET num_k = num_k + 1, num_p = num_p + 1 WHERE old_move = 'asd'"
+    # mycurser.execute(new_formula2)
+    # mydb.commit()
+    # Set data to DB
+    # sqlFormula = "INSERT INTO students (id) VALUES (%s)"
+    # student1 = [("Racahel", 22),
+    #             ("Rachel2", 223),
+    #             ("Rachel3", 224),
+    #             ("Rachel4", 225)]
+    # mycurser.executemany(sqlFormula, student1)
+    # mycurser.execute("INSERT INTO moves VALUES ('asd', 0, 0, 0, 0, 0)")
+    # mydb.commit()
+    # mycurser.execute("SHOW TABLES")
+    # mycurser.execute("CREATE TABLE moves (old_move VARCHAR(255), num_r INTEGER(6), num_q INTEGER(6), num_b INTEGER(6), num_p INTEGER(6), num_k INTEGER(6))")
+    # mydb.commit()
+    # Get data from DB
+    # mycurser.execute("SELECT * FROM students WHERE age > 223")
+    # mycurser.execute("UPDATE students SET age = age + 100 WHERE name = 'Rachel4'")
+    # mydb.commit()
+    # mycurser.execute("ALTER TABLE students ADD id2 VARCHAR(100)")
+    # mycurser.execute("DROP TABLE moves")
+    # mydb.commit()
+    # mycurser.execute("UPDATE students SET familyName = 'hi'")
+
+    # mydb.commit()
+    # mycurser.execute("SELECT * FROM students WHERE age = 7232")
+    # myresult = mycurser.fetchall()
+    # if not mycurser.fetchone():
+    #     print("AAAAA")
+    # for row in mycurser:
+
+
+
+    # for db in mycurser:
+    #     print(db)
+    # mycurser.execute('CREATE DATABASE testdb')
+
 
 def read_games_to_dict_turns():
     global start_time
 
     # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
-    # file_names = ["/Users/Eliko/desktop/chessing around files/201301.pgn"]
-    file_names = [os.getcwd() + "/../201310.pgn", os.getcwd() + "/../201311.pgn"]
+    file_names = [os.getcwd() + "/../201301.pgn", os.getcwd() + "/../201302.pgn"]
+
     print("I will read all the next files:")
     for file_name in file_names:
         print(file_name)
@@ -64,6 +128,7 @@ def read_in_files(file, file_name):
 
         # Kill eaten, checkmate, pawn to end and check
         kill_in_string = "x#=+"
+
         for char in kill_in_string:
             game = game.replace(char, "")
 
@@ -83,9 +148,10 @@ def read_in_files(file, file_name):
             if len(move) != 2:
                 break
             game = move[1]
-
             # add a note
+            aa = time.time()
             add_move_to_dict(old_move.__str__(), move[0])
+            print((time.time() - aa)*1000)
 
             # Black's turn
             move = game.split(" ", 1)
@@ -99,6 +165,7 @@ def read_in_files(file, file_name):
             game = move[1]
 
         # Print info
+        # print(counter_total_games)
         if counter_total_games % 1000 == 0:
             print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
                   + "minutes // file: " + file_name)
@@ -113,13 +180,26 @@ def add_move_to_dict(old_move, new_move):
     old_move = old_move.replace("\n", "")
     old_move = old_move.replace(" ", "")
 
-    if old_move in dict_turns:
-        if new_move in dict_turns.get(old_move):
-            (dict_turns.get(old_move))[new_move] = dict_turns.get(old_move).get(new_move) + 1
-        else:
-            (dict_turns.get(old_move))[new_move] = 1
+    # num_of_q = str(old_move.count('q'))
+    # num_of_r = str(old_move.count('r'))
+    # num_of_b = str(old_move.count('b'))
+    # num_of_p = str(old_move.count('p'))
+    # num_of_k = str(old_move.count('k'))
+
+    # new_move = new_move.lower()
+    mydb.cursor(buffered=True)
+
+    sql_formula = f"SELECT 1 FROM moves WHERE old_move = '{old_move}' and new_move = '{new_move}'"
+    mycurser.execute(sql_formula)
+
+    if mycurser.fetchone():
+        new_formula2 = f"UPDATE moves SET count = count + 1 WHERE old_move = '{old_move}' and new_move = '{new_move}'"
+        mycurser.execute(new_formula2)
+
     else:
-        dict_turns[old_move] = {new_move: 1}
+        sql_formula = f"INSERT INTO moves (old_move, new_move, count) VALUES (%s, %s, %s)"
+        mycurser.execute(sql_formula, (old_move, new_move, 1,))
+    mydb.commit()
 
 
 def get_most_common(board):
@@ -247,7 +327,7 @@ def read_file2():
 
 
 def write_final_file():
-    file = open(os.getcwd() + "/../final_file.txt", "w")
+    file = open("final_file.txt", "w")
     file.write(str(len(final_dict_turns.keys())) + "\n")
     for i in final_dict_turns.keys():
         file.write(i + "\n" + final_dict_turns.get(i) + "\n")
@@ -266,23 +346,47 @@ def read_final_file():
     file.close()
 
 
+def final_dict_to_excel():
+    global final_dict_turns
+    # output_df = pd.DataFrame(columns=['current board', 'move'])
+    df = pd.DataFrame()
+    df['Current Board'] = final_dict_turns.keys()
+    df['Move'] = final_dict_turns.values()
+    df.to_csv('hi.csv')
+
+
 if __name__ == '__main__':
-    read_from_file_time_to_dict_turns = time.time()
-    read_from_file_to_dict_turns()
-    print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
+    # print("a")
+    # mysql_func()
+    # print("aa")
+
+    print("Reseting DB..")
+    resetDB()
+    print("DB Restarted")
+
+    # fbase()
+
+    # read_from_file_time_to_dict_turns = time.time()
+    # read_from_file_to_dict_turns()
+    # print(str(((time.time() - read_from_file_time_to_dict_turns) / 60)) + " minutes")
 
     read_from_file_time = time.time()
     read_games_to_dict_turns()
     print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
 
-    write_to_dict_turns_time = time.time()
-    write_dict_turns_to_file()
-    print(str(((time.time() - write_to_dict_turns_time) / 60)) + " minutes")
+    # write_to_dict_turns_time = time.time()
+    # write_dict_turns_to_file()
+    # print(str(((time.time() - write_to_dict_turns_time) / 60)) + " minutes")
 
     # print("Getting best moves")
     # start_time2 = time.time()
     # get_best_moves_dict()
     # print(str(((time.time() - start_time2) / 60)) + " minutes")
+    #
+    # print("Putting into excel")
+    # start_time3 = time.time()
+    # final_dict_to_excel()
+    # print(str(((time.time() - start_time3) / 60)) + " minutes")
 
     # print("Writing to final file")
     # write_final_file_start_time = time.time()
