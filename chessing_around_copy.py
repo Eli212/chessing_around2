@@ -86,9 +86,9 @@ def read_in_files(file, file_name):
             game = move[1]
 
             # add a note
-            aa = time.time()
+            # aa = time.time()
             add_move_to_dict(old_move.__str__(), move[0])
-            print((time.time() - aa)*1000)
+            # print((time.time() - aa)*1000)
             # Black's turn
             move = game.split(" ", 1)
             board.push_san(move[0])
@@ -101,7 +101,7 @@ def read_in_files(file, file_name):
             game = move[1]
 
         # Print info
-        print(counter_total_games)
+        # print(counter_total_games)
         if counter_total_games % 1000 == 0:
             print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
                   + "minutes // file: " + file_name)

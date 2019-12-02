@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bbc6cbcd-1e03-414e-9f0d-5377c7107683" name="Default Changelist" comment="" />
+    <list default="true" id="bbc6cbcd-1e03-414e-9f0d-5377c7107683" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chessing_around.py" beforeDir="false" afterPath="$PROJECT_DIR$/chessing_around.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chessing_around_copy.py" beforeDir="false" afterPath="$PROJECT_DIR$/chessing_around_copy.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -488,7 +492,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575122155284</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="added DB (mysql)">
+      <created>1575122551896</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1575122551896</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
