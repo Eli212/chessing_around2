@@ -9,6 +9,7 @@ import pandas as pd
 import pymongo
 import mysql.connector
 import threading
+import multiprocessing
 
 # from gui import ChessboardApp
 
@@ -22,9 +23,11 @@ running_threads = 0
 current_turn = 0
 thread_num = 1
 final_num_of_games = -1
-dbz = []
-
-exit_num_of_games = 1000
+many_inserts = []
+db = []
+mySql_insert_query = "INSERT INTO moves (old_move, new_move) " \
+                         "VALUES (%s, %s) ON DUPLICATE KEY UPDATE count = count + 1"
+exit_num_of_games = 500
 
 mydb = mysql.connector.connect(
         host = 'localhost',
@@ -36,19 +39,36 @@ mycurser = mydb.cursor()
 # mycurser.execute("SHOW columns FROM moves")
 
 
-def always_running():
-    global dbz
-    global running_threads
-    global counter_total_games
-    global final_num_of_games
+# def always_running():
+#     global dbz
+#     global running_threads
+#     global counter_total_games
+#     global final_num_of_games
+#
+#     inini = time.time()
+#     while True:
+#         if len(dbz) != 0:
+#             # print(multiprocessing.cpu_count())
+#             dbz[0].start()
+#             dbz[0].join()
+#             del dbz[0]  # Maybe move this to inside the thread
+#         if counter_total_games == final_num_of_games and len(dbz) == 0:
+#             print((time.time() - inini) / 60)
+#             break
+
+
+def always_running2():
+    global many_inserts
+    global mySql_insert_query
 
     inini = time.time()
     while True:
-        if len(dbz) != 0 and running_threads < 1:
-            dbz[0].start()
-            dbz[0].join()
-            del dbz[0]
-        if counter_total_games == final_num_of_games and len(dbz) == 0:
+        if len(many_inserts) != 0:
+            hey = many_inserts.copy()
+            many_inserts = []
+            mycurser.executemany(mySql_insert_query, hey)
+            mydb.commit()
+        if counter_total_games == final_num_of_games and len(many_inserts) == 0:
             print((time.time() - inini) / 60)
             break
 
@@ -66,6 +86,22 @@ def resetDB():
 
 def mysql_func():
     pass
+    # global many_inserts
+    # sql_formula = f"INSERT INTO moves (old_move, new_move) " \
+    #               f"VALUES ('a', 'b') ON DUPLICATE KEY UPDATE count = count + 1"
+    # many_inserts.append(sql_formula)
+    # sql_formula = f"INSERT INTO moves (old_move, new_move) " \
+    #               f"VALUES ('aa', 'bb') ON DUPLICATE KEY UPDATE count = count + 1"
+    # many_inserts.append(sql_formula)
+    # asdf = ('a', 'b')
+    # many_inserts.append(asdf)
+    # asdf = ('a', 'bb')
+    # many_inserts.append(asdf)
+    # asdf = ('a', 'bb')
+    # many_inserts.append(asdf)
+    # mycurser.executemany(mySql_insert_query, many_inserts)
+    #
+    # mydb.commit()
     # new_formula2 = f"UPDATE moves SET num_k = num_k + 1, num_p = num_p + 1 WHERE old_move = 'asd'"
     # mycurser.execute(new_formula2)
     # mydb.commit()
@@ -103,6 +139,20 @@ def mysql_func():
     #     print(db)
     # mycurser.execute('CREATE DATABASE testdb')
 
+def reading_test():
+    global db
+    inini = time.time()
+    file = open(os.getcwd() + "/../201301.pgn", "r")
+    while True:
+        check = file.readline()  # Reading the next line and checking if it's end of file!
+        if check is "":
+            break
+        if check[0] == '1':
+            db.append(check)
+            count = 0
+    # print(db)
+    print((time.time() - inini) / 60)
+    read_in_files2()
 
 
 def read_games_to_dict_turns():
@@ -130,11 +180,145 @@ def read_games_to_dict_turns():
     # get_best_moves_dict()
     # write_file2()
 
+def read_in_files3():
+    global db
+    global counter_total_games
+
+    for game in db:
+        board = chess.Board()
+
+        if '%' in game:
+            continue
+        # print("aa:" + game)
+        counter_total_games += 1
+
+        kill_in_string = "x#=+"
+
+        for char in kill_in_string:
+            game = game.replace(char, "")
+
+        if game[-7:] == "1/2-1/2":
+            game = game[:-8]
+        else:
+            game = game[:-4]
+
+        while True:
+            # Copying the current board to send it for update after making the next step
+            old_move = board.copy()
+
+            # White's turn
+            move = game.split(" ", 1)
+            board.push_san(move[0])
+            if len(move) != 2:
+                break
+            game = move[1]
+            # add a note
+            ### start of move_to_dict here ###
+            # The next 2 lines is necessary only to run in AWS-EC2 because it's not
+            # reading the correct str func in the init file of the library 'chess'
+            old_move = old_move.__str__().replace("\n", "")
+            old_move = old_move.__str__().replace(" ", "")
+            many_inserts.append((old_move, move[0]))
+            ### end of move_to_dict here ###
+            # add_move_to_dict(old_move.__str__(), move[0])
+            # x = threading.Thread(target=add_move_to_dict, args=[old_move.__str__(), move[0]])
+            # dbz.append(x)
+
+            # Black's turn
+            move = game.split(" ", 1)
+            board.push_san(move[0])
+            if len(move) != 2:
+                break
+            game = move[1]
+
+            # Skip the "i. "
+            move = game.split(" ", 1)
+            game = move[1]
+
+
+def read_in_files2():
+    global counter_total_games
+    global many_inserts
+    global db
+
+    start_time = time.time()
+    with open(os.getcwd() + "/../201302.pgn", 'r') as file:
+        data = file.read()
+
+    while True:
+        # Create board
+        board = chess.Board()
+
+        # Skip to game
+        while data[:4] != "\n1. ":
+            check = data.split('\n', 1)
+            if check[0] is "":
+                return
+            data = check[1]
+
+        # print(data)
+        split_data = data.split('\n', 1)
+        split_data = split_data[1].split('\n', 1)
+        game = split_data[0]
+        if '%' in game:
+            continue
+        # print("aa:" + game)
+        counter_total_games += 1
+
+        kill_in_string = "x#=+"
+
+        for char in kill_in_string:
+            game = game.replace(char, "")
+
+        if game[-7:] == "1/2-1/2":
+            game = game[:-8]
+        else:
+            game = game[:-4]
+
+        game = game.split(" ", 1)[1]
+
+        while True:
+            # Copying the current board to send it for update after making the next step
+            old_move = board.copy()
+
+            # White's turn
+            move = game.split(" ", 1)
+            # print("move: " + move)
+            board.push_san(move[0])
+            if len(move) != 2:
+                break
+            game = move[1]
+
+            # reading the correct str func in the init file of the library 'chess'
+            old_move = old_move.__str__().replace("\n", "")
+            old_move = old_move.__str__().replace(" ", "")
+            many_inserts.append((old_move, move[0]))
+            ### end of move_to_dict here ###
+
+            # Black's turn
+            move = game.split(" ", 1)
+            board.push_san(move[0])
+            if len(move) != 2:
+                break
+            game = move[1]
+
+            # Skip the "i. "
+            move = game.split(" ", 1)
+            game = move[1]
+
+        if counter_total_games % 500 == 0:
+            print("asd")
+            print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
+                  + "minutes")
+
+        split_data = split_data[1].split('\n', 1)
+        data = split_data[1]
+
 
 def read_in_files(file, file_name):
     global dict_turns
     global counter_total_games
-    global dbz
+    global many_inserts
 
     # for game_in_text in range(10_000_000): # Run for a specific range of games
     while True:
@@ -179,9 +363,17 @@ def read_in_files(file, file_name):
                 break
             game = move[1]
             # add a note
+            ### start of move_to_dict here ###
+            # The next 2 lines is necessary only to run in AWS-EC2 because it's not
+            # reading the correct str func in the init file of the library 'chess'
+            # old_move = old_move.__str__().replace("\n", "")
+            # old_move = old_move.__str__().replace(" ", "")
+            # many_inserts.append((old_move, move[0]))
+            ### end of move_to_dict here ###
             # add_move_to_dict(old_move.__str__(), move[0])
             x = threading.Thread(target=add_move_to_dict, args=[old_move.__str__(), move[0]])
-            dbz.append(x)
+            x.start()
+            # dbz.append(x)
 
             # Black's turn
             move = game.split(" ", 1)
@@ -198,17 +390,20 @@ def read_in_files(file, file_name):
         # print(counter_total_games)
         # if counter_total_games == 2000:
         #     print("time: " + str(time.time() - aa))
-        if counter_total_games % exit_num_of_games == 0:
-            print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
-                  + "minutes // file: " + file_name)
-            sys.exit()
+        # if counter_total_games % exit_num_of_games == 0:
+        #     print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
+        #           + "minutes // file: " + file_name)
+            # sys.exit()
         # Skip to next game
         file.readline()
 
 
 def add_move_to_dict(old_move, new_move):
     global running_threads
+    global many_inserts
 
+    # while True:
+    #     if running_threads < 4:
     running_threads += 1
 
     # The next 2 lines is necessary only to run in AWS-EC2 because it's not
@@ -216,14 +411,18 @@ def add_move_to_dict(old_move, new_move):
     old_move = old_move.replace("\n", "")
     old_move = old_move.replace(" ", "")
 
-    mydb.cursor(buffered=True)
+    # mydb.cursor(buffered=True)
 
-    sql_formula = f"INSERT INTO moves (old_move, new_move) " \
-                  f"VALUES ('{old_move}', '{new_move}') ON DUPLICATE KEY UPDATE count = count + 1"
-    mycurser.execute(sql_formula)
+    # sql_formula = f"INSERT INTO moves (old_move, new_move) " \
+    #               f"VALUES ('{old_move}', '{new_move}') ON DUPLICATE KEY UPDATE count = count + 1"
 
-    mydb.commit()
+    many_inserts.append((old_move, new_move))
+
     running_threads -= 1
+    return
+    # mycurser.execute(sql_formula)
+
+    # mydb.commit()
 
 
 def get_most_common(board):
@@ -380,8 +579,10 @@ def final_dict_to_excel():
 
 
 if __name__ == '__main__':
-    x = threading.Thread(target=always_running, args=())
-    x.start()
+
+    y = threading.Thread(target=always_running2, args=())
+    y.start()
+
     # print("a")
     # mysql_func()
     # print("aa")
@@ -389,6 +590,8 @@ if __name__ == '__main__':
     print("Reseting DB..")
     resetDB()
     print("DB Restarted")
+
+    # reading_test()
 
     # fbase()
 
@@ -401,6 +604,12 @@ if __name__ == '__main__':
     print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
     final_num_of_games = counter_total_games
     print("num of games: " + str(counter_total_games))
+
+    # read_from_file_time2 = time.time()
+    # read_in_files2()
+    # print(str(((time.time() - read_from_file_time2) / 60)) + " minutes")
+    # final_num_of_games = counter_total_games
+    # print("num of games: " + str(counter_total_games))
 
     # write_to_dict_turns_time = time.time()
     # write_dict_turns_to_file()

@@ -17,8 +17,8 @@ def read_games_to_dict_turns():
 
     # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
     # file_names = ["/Users/Eliko/desktop/chessing around files/201301.pgn"]
-    # file_names = [os.getcwd() + "/../201301.pgn", os.getcwd() + "/../201302.pgn"]
-    file_names = [os.getcwd() + "/../201301.pgn"]
+    file_names = [os.getcwd() + "/../201301.pgn", os.getcwd() + "/../201302.pgn"]
+    # file_names = [os.getcwd() + "/../201301.pgn"]
     print("I will read all the next files:")
     for file_name in file_names:
         print(file_name)
