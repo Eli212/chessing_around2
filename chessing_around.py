@@ -19,6 +19,7 @@ final_dict_turns = {}
 counter_total_games = 0
 start_time = 0
 
+global_file_name = ""
 running_threads = 0
 current_turn = 0
 thread_num = 1
@@ -70,6 +71,18 @@ def always_running2():
             mydb.commit()
         if counter_total_games == final_num_of_games and len(many_inserts) == 0:
             print((time.time() - inini) / 60)
+            break
+
+
+def print_info():
+    global global_file_name
+    global many_inserts
+
+    while True:
+        time.sleep(2)
+        print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
+              + "minutes // file: " + global_file_name)
+        if counter_total_games == final_num_of_games and len(many_inserts) == 0:
             break
 
 
@@ -157,15 +170,16 @@ def reading_test():
 
 def read_games_to_dict_turns():
     global start_time
+    global global_file_name
 
     # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
     # file_names = [os.getcwd() + "/../201301.pgn", os.getcwd() + "/../201302.pgn"]
-    file_names = [os.getcwd() + "/../201301.pgn"]
+    file_names = [os.getcwd() + "/../201302.pgn"]
 
     print("I will read all the next files:")
     for file_name in file_names:
         print(file_name)
-
+    global_file_name = file_name
     start_time = time.time()
 
     for file_name in file_names:
@@ -366,13 +380,13 @@ def read_in_files(file, file_name):
             ### start of move_to_dict here ###
             # The next 2 lines is necessary only to run in AWS-EC2 because it's not
             # reading the correct str func in the init file of the library 'chess'
-            # old_move = old_move.__str__().replace("\n", "")
-            # old_move = old_move.__str__().replace(" ", "")
-            # many_inserts.append((old_move, move[0]))
+            old_move = old_move.__str__().replace("\n", "")
+            old_move = old_move.__str__().replace(" ", "")
+            many_inserts.append((old_move, move[0]))
             ### end of move_to_dict here ###
             # add_move_to_dict(old_move.__str__(), move[0])
-            x = threading.Thread(target=add_move_to_dict, args=[old_move.__str__(), move[0]])
-            x.start()
+            # x = threading.Thread(target=add_move_to_dict, args=[old_move.__str__(), move[0]])
+            # x.start()
             # dbz.append(x)
 
             # Black's turn
@@ -583,6 +597,8 @@ if __name__ == '__main__':
     y = threading.Thread(target=always_running2, args=())
     y.start()
 
+    time_thread = threading.Thread(target=print_info, args=())
+    time_thread.start()
     # print("a")
     # mysql_func()
     # print("aa")
