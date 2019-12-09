@@ -1,0 +1,14 @@
+LICENSE
+PKG-INFO
+README
+setup.cfg
+setup.py
+pd/__init__.py
+pd/pdd.py
+pd.egg-info/PKG-INFO
+pd.egg-info/SOURCES.txt
+pd.egg-info/dependency_links.txt
+pd.egg-info/not-zip-safe
+pd.egg-info/top_level.txt
+tests/__init__.py
+tests/test_pd.py
