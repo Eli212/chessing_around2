@@ -81,7 +81,10 @@ def print_info():
     while True:
         time.sleep(2)
         print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
-              + "minutes // file: " + global_file_name)
+              + "minutes // file: " + global_file_name + "\nRunning threads: " + str(threading.active_count()) +
+              "\nmany_inserts: " + str(len(many_inserts)) + "ctg:" + str(counter_total_games)
+              + "fnog: " + str(final_num_of_games))
+
         if counter_total_games == final_num_of_games and len(many_inserts) == 0:
             break
 
@@ -174,7 +177,7 @@ def read_games_to_dict_turns():
 
     # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
     # file_names = [os.getcwd() + "/../201301.pgn", os.getcwd() + "/../201302.pgn"]
-    file_names = [os.getcwd() + "/../201302.pgn"]
+    file_names = [os.getcwd() + "/../201301.pgn"]
 
     print("I will read all the next files:")
     for file_name in file_names:
@@ -328,11 +331,15 @@ def read_in_files2():
         split_data = split_data[1].split('\n', 1)
         data = split_data[1]
 
-
+a = 0
+b = 0
 def read_in_files(file, file_name):
     global dict_turns
     global counter_total_games
     global many_inserts
+    global a
+    global b
+
 
     # for game_in_text in range(10_000_000): # Run for a specific range of games
     while True:
@@ -363,8 +370,10 @@ def read_in_files(file, file_name):
         # Kill "1. " for draw games and win/lose games
         if game[-8:-1] == "1/2-1/2":
             game = game[:-9]
+            a += 1
         else:
             game = game[:-5]
+            b += 1
 
         while True:
             # Copying the current board to send it for update after making the next step
@@ -655,3 +664,5 @@ if __name__ == '__main__':
     # read_from_file_to_dict_turns()
     # read_file2()
     # ChessboardApp().run()
+    print("a: " + str(a))
+    print("b: " + str(b))
