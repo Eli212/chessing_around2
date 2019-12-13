@@ -25,10 +25,18 @@ current_turn = 0
 thread_num = 1
 final_num_of_games = -1
 many_inserts = []
+many_inserts2 = []
+many_inserts_status = 1
 db = []
+status = "add"  # add or nadd
+status2 = "insert"  # insert or ninsert
+status_push = False
+copied = []
 mySql_insert_query = "INSERT INTO moves (old_move, new_move) " \
                          "VALUES (%s, %s) ON DUPLICATE KEY UPDATE count = count + 1"
 exit_num_of_games = 500
+
+# use_many_inserts = True
 
 mydb = mysql.connector.connect(
         host = 'localhost',
@@ -37,53 +45,59 @@ mydb = mysql.connector.connect(
         database = 'testdb'
     )
 mycurser = mydb.cursor()
+
 # mycurser.execute("SHOW columns FROM moves")
-
-
-# def always_running():
-#     global dbz
-#     global running_threads
-#     global counter_total_games
-#     global final_num_of_games
-#
-#     inini = time.time()
-#     while True:
-#         if len(dbz) != 0:
-#             # print(multiprocessing.cpu_count())
-#             dbz[0].start()
-#             dbz[0].join()
-#             del dbz[0]  # Maybe move this to inside the thread
-#         if counter_total_games == final_num_of_games and len(dbz) == 0:
-#             print((time.time() - inini) / 60)
-#             break
 
 
 def always_running2():
     global many_inserts
+    global many_inserts2
     global mySql_insert_query
+    global many_inserts_status
+    global status2
+    global copied
+    global status_push
 
     inini = time.time()
     while True:
-        if len(many_inserts) != 0:
-            hey = many_inserts.copy()
-            many_inserts = []
-            mycurser.executemany(mySql_insert_query, hey)
+        # if status_push is True:
+            # status_push = False
+        if many_inserts_status is 1:
+            many_inserts_status = 2
+            mycurser.executemany(mySql_insert_query, many_inserts)
             mydb.commit()
-        if counter_total_games == final_num_of_games and len(many_inserts) == 0:
-            print((time.time() - inini) / 60)
-            break
+            many_inserts = []
+        else:
+            many_inserts_status = 1
+            mycurser.executemany(mySql_insert_query, many_inserts2)
+            mydb.commit()
+            many_inserts2 = []
+
+        # while status2 == "ninsert":
+        #     pass
+        # # if len(many_inserts) != 0:
+        #     # hey = many_inserts.copy()
+        # mycurser.executemany(mySql_insert_query, copied)
+        # mydb.commit()
+        # copied = []
+        # status2 = "ninsert"
+        #     if counter_total_games == final_num_of_games and len(many_inserts) == 0:
+        #         print((time.time() - inini) / 60)
+        #         break
 
 
 def print_info():
     global global_file_name
     global many_inserts
+    global many_inserts2
 
     while True:
         time.sleep(2)
+        print("========")
         print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
               + "minutes // file: " + global_file_name + "\nRunning threads: " + str(threading.active_count()) +
-              "\nmany_inserts: " + str(len(many_inserts)) + "ctg:" + str(counter_total_games)
-              + "fnog: " + str(final_num_of_games))
+              "\nmany_inserts: " + str(len(many_inserts)) + "\nmany_inserts2: " + str(len(many_inserts2)) + "\ncounter_total_games:" + str(counter_total_games)
+              + "\nfinal_number_of_games: " + str(final_num_of_games))
 
         if counter_total_games == final_num_of_games and len(many_inserts) == 0:
             break
@@ -155,6 +169,7 @@ def mysql_func():
     #     print(db)
     # mycurser.execute('CREATE DATABASE testdb')
 
+
 def reading_test():
     global db
     inini = time.time()
@@ -196,6 +211,7 @@ def read_games_to_dict_turns():
     # write_dict_turns_to_file()
     # get_best_moves_dict()
     # write_file2()
+
 
 def read_in_files3():
     global db
@@ -323,7 +339,7 @@ def read_in_files2():
             move = game.split(" ", 1)
             game = move[1]
 
-        if counter_total_games % 500 == 0:
+        if counter_total_games % 1200 == 0:
             print("asd")
             print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
                   + "minutes")
@@ -331,15 +347,15 @@ def read_in_files2():
         split_data = split_data[1].split('\n', 1)
         data = split_data[1]
 
-a = 0
-b = 0
+
 def read_in_files(file, file_name):
     global dict_turns
     global counter_total_games
     global many_inserts
-    global a
-    global b
-
+    global many_inserts2
+    global many_inserts_status
+    global status
+    global status_push
 
     # for game_in_text in range(10_000_000): # Run for a specific range of games
     while True:
@@ -370,10 +386,8 @@ def read_in_files(file, file_name):
         # Kill "1. " for draw games and win/lose games
         if game[-8:-1] == "1/2-1/2":
             game = game[:-9]
-            a += 1
         else:
             game = game[:-5]
-            b += 1
 
         while True:
             # Copying the current board to send it for update after making the next step
@@ -391,12 +405,19 @@ def read_in_files(file, file_name):
             # reading the correct str func in the init file of the library 'chess'
             old_move = old_move.__str__().replace("\n", "")
             old_move = old_move.__str__().replace(" ", "")
-            many_inserts.append((old_move, move[0]))
+
+            # if counter_total_games % 300 == 0:
+            #     status_push = True
+            #
+            # while status == "nand":
+            #     pass
+
+            if many_inserts_status == 1:
+                many_inserts.append((old_move, move[0]))
+            else:
+                many_inserts2.append((old_move, move[0]))
+
             ### end of move_to_dict here ###
-            # add_move_to_dict(old_move.__str__(), move[0])
-            # x = threading.Thread(target=add_move_to_dict, args=[old_move.__str__(), move[0]])
-            # x.start()
-            # dbz.append(x)
 
             # Black's turn
             move = game.split(" ", 1)
@@ -419,6 +440,21 @@ def read_in_files(file, file_name):
             # sys.exit()
         # Skip to next game
         file.readline()
+
+
+def send_to_insert():
+    global many_inserts
+    global status
+    global status2
+    global copied
+
+    # while True:
+    #     while status == "add":
+    #         pass
+    #     copied = many_inserts.copy()
+    #     many_inserts = []
+    #     status = "add"
+    #     status2 = "insert"
 
 
 def add_move_to_dict(old_move, new_move):
@@ -602,19 +638,22 @@ def final_dict_to_excel():
 
 
 if __name__ == '__main__':
-
-    y = threading.Thread(target=always_running2, args=())
-    y.start()
-
-    time_thread = threading.Thread(target=print_info, args=())
-    time_thread.start()
-    # print("a")
-    # mysql_func()
-    # print("aa")
-
     print("Reseting DB..")
     resetDB()
     print("DB Restarted")
+
+    always_running2_thread = threading.Thread(target=always_running2, args=())
+    always_running2_thread.start()
+
+    time_thread = threading.Thread(target=print_info, args=())
+    time_thread.start()
+
+    # send_to_insert_thread = threading.Thread(target=send_to_insert, args=())
+    # send_to_insert_thread.start()
+
+    # print("a")
+    # mysql_func()
+    # print("aa")
 
     # reading_test()
 
@@ -664,5 +703,3 @@ if __name__ == '__main__':
     # read_from_file_to_dict_turns()
     # read_file2()
     # ChessboardApp().run()
-    print("a: " + str(a))
-    print("b: " + str(b))
