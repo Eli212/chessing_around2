@@ -40,7 +40,7 @@ exit_num_of_games = 500
 mydb = mysql.connector.connect(
         host = 'localhost',
         user = 'root',
-        password = '123456789',
+        password = '',
         database = 'testdb'
     )
 mycurser = mydb.cursor()
