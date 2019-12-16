@@ -1,6 +1,6 @@
 import sys
 
-import calc as calc
+# import calc as calc
 import chess
 import time
 import os
@@ -555,8 +555,8 @@ def write_file2():
 
     for move in dict_turns.keys():
         count += 1
-        string3 = calc(dict_turns.get(move))
-        file2.write(move + "\n" + string3 + "\n")
+        # string3 = calc(dict_turns.get(move))
+        # file2.write(move + "\n" + string3 + "\n")
 
         if round(max_games*0.1) == count:
             print("10% of writing is complete. Time: " + str(((time.time() - writing_time)/60)) + " minutes")
