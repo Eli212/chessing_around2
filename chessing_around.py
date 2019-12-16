@@ -28,9 +28,8 @@ many_inserts = []
 many_inserts2 = []
 many_inserts_status = 1
 db = []
-status = "add"  # add or nadd
-status2 = "insert"  # insert or ninsert
-status_push = False
+max_insert_many = 0
+max_insert_many2 = 0
 copied = []
 mySql_insert_query = "INSERT INTO moves (old_move, new_move) " \
                          "VALUES (%s, %s) ON DUPLICATE KEY UPDATE count = count + 1"
@@ -54,36 +53,42 @@ def always_running2():
     global many_inserts2
     global mySql_insert_query
     global many_inserts_status
-    global status2
     global copied
-    global status_push
+    global max_insert_many
+    global max_insert_many2
 
-    inini = time.time()
+    # inini = time.time()
     while True:
-        # if status_push is True:
-            # status_push = False
         if many_inserts_status is 1:
-            many_inserts_status = 2
-            mycurser.executemany(mySql_insert_query, many_inserts)
-            mydb.commit()
-            many_inserts = []
+            len_many_inserts = len(many_inserts)
+            if len_many_inserts > max_insert_many:
+                max_insert_many = len_many_inserts
+            if len_many_inserts > 1000:
+                many_inserts_status = 2
+                mycurser.executemany(mySql_insert_query, many_inserts[:1000])
+                mydb.commit()
+                many_inserts = many_inserts[1000:]
+            else:
+                many_inserts_status = 2
+                mycurser.executemany(mySql_insert_query, many_inserts)
+                mydb.commit()
+                many_inserts = []
         else:
-            many_inserts_status = 1
-            mycurser.executemany(mySql_insert_query, many_inserts2)
-            mydb.commit()
-            many_inserts2 = []
-
-        # while status2 == "ninsert":
-        #     pass
-        # # if len(many_inserts) != 0:
-        #     # hey = many_inserts.copy()
-        # mycurser.executemany(mySql_insert_query, copied)
-        # mydb.commit()
-        # copied = []
-        # status2 = "ninsert"
-        #     if counter_total_games == final_num_of_games and len(many_inserts) == 0:
-        #         print((time.time() - inini) / 60)
-        #         break
+            lenmany_inserts2 = len(many_inserts2)
+            if lenmany_inserts2 > max_insert_many2:
+                max_insert_many2 = lenmany_inserts2
+            if lenmany_inserts2 > 1000:
+                many_inserts_status = 1
+                mycurser.executemany(mySql_insert_query, many_inserts2[:1000])
+                mydb.commit()
+                many_inserts2 = many_inserts2[1000:]
+            else:
+                many_inserts_status = 1
+                mycurser.executemany(mySql_insert_query, many_inserts2)
+                mydb.commit()
+                many_inserts2 = []
+        if counter_total_games == final_num_of_games and len(many_inserts) == 0:
+            break
 
 
 def print_info():
@@ -96,7 +101,8 @@ def print_info():
         print("========")
         print(str(counter_total_games) + " games // " + str((time.time() - start_time)/60)
               + "minutes // file: " + global_file_name + "\nRunning threads: " + str(threading.active_count()) +
-              "\nmany_inserts: " + str(len(many_inserts)) + "\nmany_inserts2: " + str(len(many_inserts2)) + "\ncounter_total_games:" + str(counter_total_games)
+              "\nmany_inserts: " + str(len(many_inserts)) + "\nmany_inserts2: " + str(len(many_inserts2)) +
+              "\ncounter_total_games:" + str(counter_total_games)
               + "\nfinal_number_of_games: " + str(final_num_of_games))
 
         if counter_total_games == final_num_of_games and len(many_inserts) == 0:
@@ -104,10 +110,10 @@ def print_info():
 
 
 def resetDB():
-    sql_formula = f"DROP TABLE moves"
-    mycurser.execute(sql_formula)
-    mydb.commit()
-
+    # sql_formula = f"DROP TABLE moves"
+    # mycurser.execute(sql_formula)
+    # mydb.commit()
+    #
     sql_formula2 = f"CREATE TABLE moves (old_move CHAR(64) NOT NULL, new_move VARCHAR(5) NOT NULL," \
                    f" count INTEGER (2) DEFAULT 1, CONSTRAINT PK_Move PRIMARY KEY (old_move, new_move))"
     mycurser.execute(sql_formula2)
@@ -191,16 +197,17 @@ def read_games_to_dict_turns():
     global global_file_name
 
     # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
-    # file_names = [os.getcwd() + "/../201301.pgn", os.getcwd() + "/../201302.pgn"]
+    # file_names = [os.getcwd() + "/../201306.pgn", os.getcwd() + "/../201307.pgn", os.getcwd() + "/../201308.pgn"]
     file_names = [os.getcwd() + "/../201301.pgn"]
 
     print("I will read all the next files:")
     for file_name in file_names:
         print(file_name)
-    global_file_name = file_name
+
     start_time = time.time()
 
     for file_name in file_names:
+        global_file_name = file_name
         file = open(file_name, "r")
         file.seek(0, os.SEEK_END)
         file.seek(0)
@@ -668,6 +675,8 @@ if __name__ == '__main__':
     print(str(((time.time() - read_from_file_time) / 60)) + " minutes")
     final_num_of_games = counter_total_games
     print("num of games: " + str(counter_total_games))
+    print("max_insert_many: " + str(max_insert_many))
+    print("max_insert_many2: " + str(max_insert_many2))
 
     # read_from_file_time2 = time.time()
     # read_in_files2()
