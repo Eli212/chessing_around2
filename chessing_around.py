@@ -110,9 +110,9 @@ def print_info():
 
 
 def resetDB():
-    # sql_formula = f"DROP TABLE moves"
-    # mycurser.execute(sql_formula)
-    # mydb.commit()
+    sql_formula = f"DROP TABLE moves"
+    mycurser.execute(sql_formula)
+    mydb.commit()
     #
     sql_formula2 = f"CREATE TABLE moves (old_move CHAR(64) NOT NULL, new_move VARCHAR(5) NOT NULL," \
                    f" count INTEGER (2) DEFAULT 1, CONSTRAINT PK_Move PRIMARY KEY (old_move, new_move))"
