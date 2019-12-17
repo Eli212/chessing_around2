@@ -113,7 +113,7 @@ def resetDB():
     sql_formula = f"DROP TABLE moves"
     mycurser.execute(sql_formula)
     mydb.commit()
-    #
+    
     sql_formula2 = f"CREATE TABLE moves (old_move CHAR(64) NOT NULL, new_move VARCHAR(5) NOT NULL," \
                    f" count INTEGER (2) DEFAULT 1, CONSTRAINT PK_Move PRIMARY KEY (old_move, new_move))"
     mycurser.execute(sql_formula2)
@@ -197,9 +197,9 @@ def read_games_to_dict_turns():
     global global_file_name
 
     # file_names = ["201301.pgn", "201302.pgn", "201303.pgn", "201304.pgn", "201305.pgn", "201306.pgn"]
-    file_names = [os.getcwd() + "/../201302.pgn", os.getcwd() + "/../201303.pgn", os.getcwd() + "/../201304.pgn",
-                  os.getcwd() + "/../201305.pgn", os.getcwd() + "/../201306.pgn", os.getcwd() + "/../201307.pgn",
-                  os.getcwd() + "/../201308.pgn"]
+    file_names = [os.getcwd() + "/../201301.pgn", os.getcwd() + "/../201302.pgn", os.getcwd() + "/../201303.pgn",
+                  os.getcwd() + "/../201304.pgn", os.getcwd() + "/../201305.pgn", os.getcwd() + "/../201306.pgn",
+                  os.getcwd() + "/../201307.pgn", os.getcwd() + "/../201308.pgn"]
     # file_names = [os.getcwd() + "/../201301.pgn"]
 
 
@@ -648,9 +648,9 @@ def final_dict_to_excel():
 
 
 if __name__ == '__main__':
-    # print("Reseting DB..")
-    # resetDB()
-    # print("DB Restarted")
+    print("Reseting DB..")
+    resetDB()
+    print("DB Restarted")
 
     always_running2_thread = threading.Thread(target=always_running2, args=())
     always_running2_thread.start()
